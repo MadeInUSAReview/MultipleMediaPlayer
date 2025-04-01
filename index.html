@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Waveform Audio Player - Dark Mode</title>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #000000;
+      color: #FFFFFF;
+      font-family: 'Open Sans Condensed', sans-serif;
+      font-weight: 300;
+      padding: 20px;
+    }
+    .player {
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      position: relative;
+    }
+    .file-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .drop-zone {
+      border: none !important;
+      padding: 10px 15px;
+      text-align: center;
+      cursor: pointer;
+      white-space: nowrap;
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .drop-zone.dragover {
+      background-color: #111;
+      border-color: #FFFFFF;
+    }
+    .drop-zone.style-file-selected {
+      border: 1px dotted #FFFFFF;
+    }
+    .filename {
+      font-size: 14px;
+      color: #FFFFFF;
+      flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .spinner, .time-spinner {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border: 3px solid #fff;
+      border-top: 3px solid #444;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: none;
+      z-index: 10;
+    }
+    .spinner {
+      top: 50%;
+      left: 50%;
+      margin: -12px 0 0 -12px;
+    }
+    .time-wrapper {
+      position: relative;
+      min-width: 90px;
+    }
+    .time-spinner {
+      top: 2px;
+      left: 50%;
+      margin-left: -12px;
+    }
+    .volume-label {
+      font-size: 12px;
+      min-width: 40px;
+      text-align: left;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    button {
+      background: #000000;
+      color: #FFFFFF;
+      border: none;
+      padding: 6px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: inherit;
+      border-radius: 6px;
+    }
+    button.active {
+      background-color: #000000;
+      border: 1px dotted #FFFFFF;
+    }
+    button.loop {
+      background-color: #000000;
+      border: 1px dotted #FFFFFF;
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: #444;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 12px;
+      width: 12px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .time {
+      font-size: 12px;
+      min-width: 90px;
+      text-align: center;
+    }
+    .percent-label {
+      font-size: 12px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="player" data-player="1">
+    <div class="spinner"></div>
+    <div class="file-row">
+      <label class="drop-zone">
+        Drag & Drop or Click to Select Audio File
+        <input type="file" accept="audio/*">
+      </label>
+      <div class="filename"></div>
+    </div>
+    <input type="range" class="progress" value="0" min="0" max="1" step="0.001">
+    <div class="controls">
+      <button class="play">Play</button>
+      <button class="loop active">Loop: On</button>
+      <button class="backward">-1 min</button>
+      <button class="forward">+1 min</button>
+      <div class="time-wrapper">
+        <div class="time-spinner"></div>
+        <div class="time">0:00:00 / 0:00:00 / 0%</div>
+      </div>
+      <input type="range" class="volume" value="1" min="0" max="1" step="0.01">
+      <span class="volume-label">100%</span>
+    </div>
+  </div>
+
+  <div class="player" data-player="2">
+    <div class="spinner"></div>
+    <div class="file-row">
+      <label class="drop-zone">
+        Drag & Drop or Click to Select Audio File
+        <input type="file" accept="audio/*">
+      </label>
+      <div class="filename"></div>
+    </div>
+    <input type="range" class="progress" value="0" min="0" max="1" step="0.001">
+    <div class="controls">
+      <button class="play">Play</button>
+      <button class="loop active">Loop: On</button>
+      <button class="backward">-1 min</button>
+      <button class="forward">+1 min</button>
+      <div class="time-wrapper">
+        <div class="time-spinner"></div>
+        <div class="time">0:00:00 / 0:00:00</div>
+      </div>
+      <input type="range" class="volume" value="1" min="0" max="1" step="0.01">
+      <span class="volume-label">100%</span>
+    </div>
+  </div>
+
+  <div class="player" data-player="3">
+    <div class="spinner"></div>
+    <div class="file-row">
+      <label class="drop-zone">
+        Drag & Drop or Click to Select Audio File
+        <input type="file" accept="audio/*">
+      </label>
+      <div class="filename"></div>
+    </div>
+    <input type="range" class="progress" value="0" min="0" max="1" step="0.001">
+    <div class="controls">
+      <button class="play">Play</button>
+      <button class="loop active">Loop: On</button>
+      <button class="backward">-1 min</button>
+      <button class="forward">+1 min</button>
+      <div class="time-wrapper">
+        <div class="time-spinner"></div>
+        <div class="time">0:00:00 / 0:00:00</div>
+      </div>
+      <input type="range" class="volume" value="1" min="0" max="1" step="0.01">
+      <span class="volume-label">100%</span>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.player').forEach(player => {
+      const fileInput = player.querySelector('input[type="file"]');
+      const dropZone = player.querySelector('.drop-zone');
+      const playBtn = player.querySelector('.play');
+      const loopBtn = player.querySelector('.loop');
+      const fwdBtn = player.querySelector('.forward');
+      const backBtn = player.querySelector('.backward');
+      const timeDisplay = player.querySelector('.time');
+      const volumeSlider = player.querySelector('.volume');
+      const volumeLabel = player.querySelector('.volume-label');
+      const progressSlider = player.querySelector('.progress');
+      const spinner = player.querySelector('.spinner');
+      const timeSpinner = player.querySelector('.time-spinner');
+      const timeWrapper = player.querySelector('.time-wrapper');
+      const fileNameDisplay = player.querySelector('.filename');
+
+      let audio = null;
+      let isLooping = true;
+
+      dropZone.addEventListener('dragover', e => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+      });
+
+      dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('dragover');
+      });
+
+      dropZone.addEventListener('drop', e => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        handleFile(file);
+      });
+
+      fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        handleFile(file);
+      });
+
+      function handleFile(file) {
+        if (!file) return;
+        if (audio) audio.pause();
+
+        audio = new Audio(URL.createObjectURL(file));
+        audio.loop = isLooping;
+        audio.volume = volumeSlider.value;
+        fileNameDisplay.textContent = file.name.replace(/\.[^/.]+$/, '');
+        dropZone.classList.add('style-file-selected');
+
+        spinner.style.display = 'block';
+        timeSpinner.style.display = 'block';
+        timeWrapper.style.visibility = 'hidden';
+
+        audio.addEventListener('loadedmetadata', () => {
+          timeDisplay.textContent = `0:00:00 / ${formatTime(audio.duration)}`;
+          progressSlider.max = audio.duration;
+          spinner.style.display = 'none';
+          timeSpinner.style.display = 'none';
+          timeWrapper.style.visibility = 'visible';
+        });
+
+        audio.addEventListener('timeupdate', () => {
+          const percentElapsed = audio.duration ? Math.floor((audio.currentTime / audio.duration) * 100) : 0;
+          timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)} / ${percentElapsed}%`;
+          progressSlider.value = audio.currentTime;
+        });
+      }
+
+      playBtn.addEventListener('click', () => {
+        if (!audio) return;
+        if (audio.paused) {
+          audio.play();
+          playBtn.textContent = 'Pause';
+        } else {
+          audio.pause();
+          playBtn.textContent = 'Play';
+        }
+      });
+
+      loopBtn.addEventListener('click', () => {
+        isLooping = !isLooping;
+        loopBtn.textContent = `Loop: ${isLooping ? 'On' : 'Off'}`;
+        loopBtn.classList.toggle('active', isLooping);
+        if (audio) audio.loop = isLooping;
+      });
+
+      fwdBtn.addEventListener('click', () => {
+        if (audio) audio.currentTime = Math.min(audio.currentTime + 60, audio.duration);
+      });
+
+      backBtn.addEventListener('click', () => {
+        if (audio) audio.currentTime = Math.max(audio.currentTime - 60, 0);
+      });
+
+      volumeSlider.addEventListener('input', () => {
+        const percent = Math.round(volumeSlider.value * 100);
+        volumeLabel.textContent = `${percent}%`;
+        if (audio) audio.volume = volumeSlider.value;
+      });
+
+      progressSlider.addEventListener('input', () => {
+        if (audio) audio.currentTime = progressSlider.value;
+      });
+    });
+
+    function formatTime(seconds) {
+      const hrs = Math.floor(seconds / 3600);
+      const mins = Math.floor((seconds % 3600) / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+  </script>
+</body>
+</html>
