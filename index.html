@@ -12,6 +12,18 @@
       font-weight: 300;
       padding: 20px;
     }
+    .player-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .player-grid {
+        grid-template-columns: 1fr;
+      }
+    }
     .player {
       border: none;
       padding: 10px;
@@ -28,6 +40,7 @@
     }
     .drop-zone {
       border: none !important;
+      display: inline-block;
       padding: 10px 15px;
       text-align: center;
       cursor: pointer;
@@ -36,6 +49,17 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .drop-zone-text {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .drop-zone input[type="file"] {
+      display: none;
+    }
+
     .drop-zone.dragover {
       background-color: #111;
       border-color: #FFFFFF;
@@ -137,14 +161,14 @@
   </style>
 </head>
 <body>
+  <div class="player-grid">
   <div class="player" data-player="1">
     <div class="spinner"></div>
     <div class="file-row">
       <label class="drop-zone">
-        Drag & Drop or Click to Select Audio File
+        <span class="drop-zone-text">Drag & Drop or Click to Select Audio File</span>
         <input type="file" accept="audio/*">
       </label>
-      <div class="filename"></div>
     </div>
     <input type="range" class="progress" value="0" min="0" max="1" step="0.001">
     <div class="controls">
@@ -154,7 +178,7 @@
       <button class="forward">+1 min</button>
       <div class="time-wrapper">
         <div class="time-spinner"></div>
-        <div class="time">0:00:00 / 0:00:00 / 0%</div>
+        <div class="time">0:00:00 / 0:00:00 / 0.00%</div>
       </div>
       <input type="range" class="volume" value="1" min="0" max="1" step="0.01">
       <span class="volume-label">100%</span>
@@ -165,10 +189,9 @@
     <div class="spinner"></div>
     <div class="file-row">
       <label class="drop-zone">
-        Drag & Drop or Click to Select Audio File
+        <span class="drop-zone-text">Drag & Drop or Click to Select Audio File</span>
         <input type="file" accept="audio/*">
       </label>
-      <div class="filename"></div>
     </div>
     <input type="range" class="progress" value="0" min="0" max="1" step="0.001">
     <div class="controls">
@@ -178,7 +201,7 @@
       <button class="forward">+1 min</button>
       <div class="time-wrapper">
         <div class="time-spinner"></div>
-        <div class="time">0:00:00 / 0:00:00</div>
+        <div class="time">0:00:00 / 0:00:00 / 0.00%</div>
       </div>
       <input type="range" class="volume" value="1" min="0" max="1" step="0.01">
       <span class="volume-label">100%</span>
@@ -189,10 +212,9 @@
     <div class="spinner"></div>
     <div class="file-row">
       <label class="drop-zone">
-        Drag & Drop or Click to Select Audio File
+        <span class="drop-zone-text">Drag & Drop or Click to Select Audio File</span>
         <input type="file" accept="audio/*">
       </label>
-      <div class="filename"></div>
     </div>
     <input type="range" class="progress" value="0" min="0" max="1" step="0.001">
     <div class="controls">
@@ -202,11 +224,81 @@
       <button class="forward">+1 min</button>
       <div class="time-wrapper">
         <div class="time-spinner"></div>
-        <div class="time">0:00:00 / 0:00:00</div>
+        <div class="time">0:00:00 / 0:00:00 / 0.00%</div>
       </div>
       <input type="range" class="volume" value="1" min="0" max="1" step="0.01">
       <span class="volume-label">100%</span>
     </div>
+  </div>
+
+  <div class="player" data-player="4">
+    <div class="spinner"></div>
+    <div class="file-row">
+      <label class="drop-zone">
+        <span class="drop-zone-text">Drag & Drop or Click to Select Audio File</span>
+        <input type="file" accept="audio/*">
+      </label>
+    </div>
+    <input type="range" class="progress" value="0" min="0" max="1" step="0.001">
+    <div class="controls">
+      <button class="play">Play</button>
+      <button class="loop active">Loop: On</button>
+      <button class="backward">-1 min</button>
+      <button class="forward">+1 min</button>
+      <div class="time-wrapper">
+        <div class="time-spinner"></div>
+        <div class="time">0:00:00 / 0:00:00 / 0.00%</div>
+      </div>
+      <input type="range" class="volume" value="1" min="0" max="1" step="0.01">
+      <span class="volume-label">100%</span>
+    </div>
+  </div>
+
+  <div class="player" data-player="5">
+    <div class="spinner"></div>
+    <div class="file-row">
+      <label class="drop-zone">
+        <span class="drop-zone-text">Drag & Drop or Click to Select Audio File</span>
+        <input type="file" accept="audio/*">
+      </label>
+    </div>
+    <input type="range" class="progress" value="0" min="0" max="1" step="0.001">
+    <div class="controls">
+      <button class="play">Play</button>
+      <button class="loop active">Loop: On</button>
+      <button class="backward">-1 min</button>
+      <button class="forward">+1 min</button>
+      <div class="time-wrapper">
+        <div class="time-spinner"></div>
+        <div class="time">0:00:00 / 0:00:00 / 0.00%</div>
+      </div>
+      <input type="range" class="volume" value="1" min="0" max="1" step="0.01">
+      <span class="volume-label">100%</span>
+    </div>
+  </div>
+
+  <div class="player" data-player="6">
+    <div class="spinner"></div>
+    <div class="file-row">
+      <label class="drop-zone">
+        <span class="drop-zone-text">Drag & Drop or Click to Select Audio File</span>
+        <input type="file" accept="audio/*">
+      </label>
+    </div>
+    <input type="range" class="progress" value="0" min="0" max="1" step="0.001">
+    <div class="controls">
+      <button class="play">Play</button>
+      <button class="loop active">Loop: On</button>
+      <button class="backward">-1 min</button>
+      <button class="forward">+1 min</button>
+      <div class="time-wrapper">
+        <div class="time-spinner"></div>
+        <div class="time">0:00:00 / 0:00:00 / 0.00%</div>
+      </div>
+      <input type="range" class="volume" value="1" min="0" max="1" step="0.01">
+      <span class="volume-label">100%</span>
+    </div>
+  </div>
   </div>
 
   <script>
@@ -224,7 +316,7 @@
       const spinner = player.querySelector('.spinner');
       const timeSpinner = player.querySelector('.time-spinner');
       const timeWrapper = player.querySelector('.time-wrapper');
-      const fileNameDisplay = player.querySelector('.filename');
+      const dropZoneText = player.querySelector('.drop-zone-text');
 
       let audio = null;
       let isLooping = true;
@@ -257,7 +349,9 @@
         audio = new Audio(URL.createObjectURL(file));
         audio.loop = isLooping;
         audio.volume = volumeSlider.value;
-        fileNameDisplay.textContent = file.name.replace(/\.[^/.]+$/, '');
+        const displayName = file.name.replace(/\.[^/.]+$/, '');
+        dropZoneText.textContent = displayName;
+        dropZone.title = file.name;
         dropZone.classList.add('style-file-selected');
 
         spinner.style.display = 'block';
@@ -265,7 +359,7 @@
         timeWrapper.style.visibility = 'hidden';
 
         audio.addEventListener('loadedmetadata', () => {
-          timeDisplay.textContent = `0:00:00 / ${formatTime(audio.duration)}`;
+          timeDisplay.textContent = `0:00:00 / ${formatTime(audio.duration)} / 0.00%`;
           progressSlider.max = audio.duration;
           spinner.style.display = 'none';
           timeSpinner.style.display = 'none';
@@ -273,7 +367,7 @@
         });
 
         audio.addEventListener('timeupdate', () => {
-          const percentElapsed = audio.duration ? Math.floor((audio.currentTime / audio.duration) * 100) : 0;
+          const percentElapsed = audio.duration ? ((audio.currentTime / audio.duration) * 100).toFixed(2) : '0.00';
           timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)} / ${percentElapsed}%`;
           progressSlider.value = audio.currentTime;
         });
